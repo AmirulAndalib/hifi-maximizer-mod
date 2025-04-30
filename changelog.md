@@ -1,8 +1,14 @@
 ## Change logs
 
+# v2.5.12
+* Tuned for POCO F3 and other "kona" board devices by adjusteding their core control parameters
+* Improved and fixed GPU boosting for recent Qcomm and Mtk SoC's
+
 # v2.5.11
-* Tuned POCO F6 for the ISIS kernel
-* Tuned POCO F6 for the stock kernel again
+* Tuned for POCO F6 (optimized for the ISIS kernel)
+* Tuned for POCO F6 (optimized for the stock kernel, but not for the ISIS kernel)
+* Tuned for POCO F3 (Android 15)
+* Fixed for InfiR kernel about VM tunables
 
 # v2.5.10
 * Adapted to run with my new module "Audio Samplerate Changer"
