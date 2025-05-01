@@ -3,6 +3,7 @@
 # v2.5.12
 * Tuned for POCO F3 and other "kona" board devices by adjusteding their core control parameters
 * Improved and fixed GPU boosting for recent Qcomm and Mtk SoC's
+* Fixed the audio policy configuration template for Tensor devices
 
 # v2.5.11
 * Tuned for POCO F6 (optimized for the ISIS kernel)

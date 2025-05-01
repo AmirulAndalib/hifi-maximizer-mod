@@ -102,9 +102,23 @@ case "$configXML" in
                 stopDRC "$mirrorConfigXML" "$modConfigXML"
             else
                 DRC_enabled="false"
+                USB_module="usbv2"
                 BT_module="bluetooth"
-                sed -e "s|%DRC_ENABLED%|$DRC_enabled|" -e "s|%BT_MODULE%|$BT_module|" \
-                        "$MODPATH/templates/bypass_offload_auto_tensor_template.xml" >"$modConfigXML"
+                SampleRatePrimary="48000"
+                AudioFormatPrimary="AUDIO_FORMAT_PCM_32_BIT"
+                VolumeFile=$(getVolumeFile "$mirrorConfigXML")
+                if [ -z "$VolumeFile" ]; then
+                    VolumeFile="/vendor/etc/audio_policy_volumes.xml"
+                fi
+                DefaultVolumeFile=$(getDefaultVolumeFile "$mirrorConfigXML")
+                if [ -z "$DefaultVolumeFile" ]; then
+                    DefaultVolumeFile="/vendor/etc/default_volume_tables.xml"
+                fi
+
+                sed   -e "s|%DRC_ENABLED%|$DRC_enabled|" -e "s|%USB_MODULE%|$USB_module|" -e "s|%BT_MODULE%|$BT_module|" \
+                        -e "s|%SAMPLING_RATE%|$SampleRatePrimary|" -e "s|%AUDIO_FORMAT%|$AudioFormatPrimary|" \
+                        -e "s|%VOLUME_FILE%|$VolumeFile|" -e "s|%DEFAULT_VOLUME_FILE%|$DefaultVolumeFile|" \
+                        "$MODPATH/templates/offload_hifi_playback_template.xml" >"$modConfigXML"
             fi
             chmod 644 "$modConfigXML"
             chcon u:object_r:vendor_configs_file:s0 "$modConfigXML"
@@ -229,6 +243,13 @@ if [ "$tensorFlag" -eq 1  -a  -e "${MODPATH%/*/*}/modules/usb-samplerate-unlocke
     ui_print ""
     ui_print "****************************************************************"
     ui_print " Uninstall \"USB Samplerate Unlocker\" manually later; this module includes all its features"
+    ui_print "****************************************************************"
+    ui_print ""
+fi
+if [ "$tensorFlag" -eq 1  -a  -e "${MODPATH%/*/*}/modules/audio-samplerate-changer" ]; then
+    ui_print ""
+    ui_print "****************************************************************"
+    ui_print " Uninstall \"Audio Samplerate Changer\" manually later; this module includes all its features"
     ui_print "****************************************************************"
     ui_print ""
 fi
