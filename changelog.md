@@ -1,5 +1,9 @@
 ## Change logs
 
+# v2.5.13
+* Nullifying the volume listener for no compressing audio (maybe a peak limiter) on Motorola devices
+* Changed an error message for no Magisk mirrors
+
 # v2.5.12
 * Tuned for POCO F3 and other "kona" board devices by adjusteding their core control parameters
 * Improved and fixed GPU boosting for recent Qcomm and Mtk SoC's
